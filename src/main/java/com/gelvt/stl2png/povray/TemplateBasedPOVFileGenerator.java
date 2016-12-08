@@ -1,7 +1,7 @@
 package com.gelvt.stl2png.povray;
 
 import com.gelvt.stl2png.Converter;
-import com.gelvt.stl2png.model.Coordinate;
+import com.gelvt.stl2png.model.Vertex;
 import com.gelvt.stl2png.model.Polygon;
 
 import java.io.*;
@@ -24,10 +24,10 @@ public class TemplateBasedPOVFileGenerator extends POVFileGenerator {
         streamWriter.write("triangle {");
         streamWriter.newLine();
         for(int i = 0; i < 3; i++){
-            Coordinate coordinate = polygon.getVertices()[i];
-            streamWriter.write("<" + String.format("%d", (int)coordinate.getX()) +
-                    ", " + String.format("%d", (int)coordinate.getY()) +
-                    ", " + String.format("%d", (int)coordinate.getZ()) +
+            Vertex vertex = polygon.getVertices()[i];
+            streamWriter.write("<" + String.format("%d", (int)vertex.getX()) +
+                    ", " + String.format("%d", (int)vertex.getY()) +
+                    ", " + String.format("%d", (int)vertex.getZ()) +
                     '>');
             if (i != 2){
                 streamWriter.write(",");

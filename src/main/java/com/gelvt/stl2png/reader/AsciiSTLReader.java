@@ -1,11 +1,9 @@
 package com.gelvt.stl2png.reader;
 
-import com.gelvt.stl2png.model.Coordinate;
+import com.gelvt.stl2png.model.Vertex;
 import com.gelvt.stl2png.model.Polygon;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,13 +27,13 @@ class AsciiSTLReader extends STLReader {
     public Polygon nextPolygon() throws IOException {
         Polygon polygon = null;
         String line;
-        Coordinate normal = null;
-        Coordinate[] vertices = new Coordinate[3];
+        Vertex normal = null;
+        Vertex[] vertices = new Vertex[3];
         int index = 0;
         while(null != (line = streamReader.readLine())){
             Matcher facetMatcher = this.facetLinePattern.matcher(line);
             if (facetMatcher.find()){
-                normal = new Coordinate(Float.parseFloat(facetMatcher.group(1))
+                normal = new Vertex(Float.parseFloat(facetMatcher.group(1))
                         , Float.parseFloat(facetMatcher.group(2))
                         , Float.parseFloat(facetMatcher.group(3)));
             }
@@ -46,7 +44,7 @@ class AsciiSTLReader extends STLReader {
             }
             Matcher vertexMatcher = this.vertexLinePattern.matcher(line);
             if (vertexMatcher.find()){
-                Coordinate vertex = new Coordinate(
+                Vertex vertex = new Vertex(
                         Float.parseFloat(vertexMatcher.group(1))
                         , Float.parseFloat(vertexMatcher.group(2))
                         , Float.parseFloat(vertexMatcher.group(3)));

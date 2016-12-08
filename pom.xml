@@ -42,7 +42,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                com.gelvt.stl2png.Runner
+                                com.gelvt.stl2png.Program
                             </mainClass>
                         </manifest>
                     </archive>

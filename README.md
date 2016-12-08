@@ -9,6 +9,17 @@ test_stl/stl2png.jar是我编译好的测试包，可以直接使用。
 success
 transform STL to png total takes 1515 millisecond
 ```
+### 参数
+```bash
+elvin@elvin-pc ~/workspace/stl2png/test_stl $ java -jar stl2png.jar -h
+usage:
+	-s STL file path
+	-t target png file path
+	-h help
+	-v show details of transform
+	-V calculate volume and output it
+	-S calculate surface area and output it
+```
 ### 运行环境
 java8、povray3.7、Linux。  
 使用之前请先安装好java8、povray3.7。  

@@ -1,6 +1,6 @@
 package com.gelvt.stl2png.reader;
 
-import com.gelvt.stl2png.model.Coordinate;
+import com.gelvt.stl2png.model.Vertex;
 import com.gelvt.stl2png.model.Polygon;
 
 import java.io.*;
@@ -23,16 +23,16 @@ public class BinarySTLReader extends STLReader {
 
     public Polygon nextPolygon() throws IOException {
         Polygon polygon = null;
-        Coordinate normal = null;
-        Coordinate[] vertices = new Coordinate[3];
+        Vertex normal = null;
+        Vertex[] vertices = new Vertex[3];
         try{
-            normal = new Coordinate(
+            normal = new Vertex(
                     readFloat(inputStream),
                     readFloat(inputStream),
                     readFloat(inputStream)
             );
             for(int i = 0; i < 3; i++){
-                Coordinate vertex = new Coordinate(
+                Vertex vertex = new Vertex(
                         readFloat(inputStream),
                         readFloat(inputStream),
                         readFloat(inputStream)

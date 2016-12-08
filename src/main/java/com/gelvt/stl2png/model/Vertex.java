@@ -1,17 +1,15 @@
 package com.gelvt.stl2png.model;
 
-import java.text.NumberFormat;
-
 /**
- * 空间坐标
+ * 顶点
  * Created by elvin on 16-12-6.
  */
-public class Coordinate {
+public class Vertex {
     private float x;
     private float y;
     private float z;
 
-    public Coordinate(float x, float y, float z) {
+    public Vertex(float x, float y, float z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -44,9 +42,9 @@ public class Coordinate {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Coordinate)) return false;
+        if (!(o instanceof Vertex)) return false;
 
-        Coordinate that = (Coordinate) o;
+        Vertex that = (Vertex) o;
 
         if (Float.compare(that.x, x) != 0) return false;
         if (Float.compare(that.y, y) != 0) return false;
