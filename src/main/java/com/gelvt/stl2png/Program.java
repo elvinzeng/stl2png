@@ -24,6 +24,7 @@ public class Program {
         options.addOption("v", false, "show details of transform");
         options.addOption("V", false, "calculate volume and output it");
         options.addOption("S", false, "calculate surface area and output it");
+        options.addOption("d", false, "calculate long, with, height and output it");
     }
 
     private static String mkTempFile() throws IOException{
@@ -83,6 +84,7 @@ public class Program {
         System.out.println("\t-v show details of transform");
         System.out.println("\t-V calculate volume and output it");
         System.out.println("\t-S calculate surface area and output it");
+        System.out.println("\t-d calculate long, with, height and output it");
         System.out.println("Author: Elvin Zeng");
         System.out.println("project: https://github.com/elvinzeng/stl2png");
     }

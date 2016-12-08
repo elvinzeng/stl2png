@@ -73,6 +73,12 @@ public class Converter {
         STLReader stlReader = STLReaderFactory.newInstance(stlFilePath);
         double v = 0;
         double s = 0;
+        float minX = Float.MAX_VALUE;
+        float maxX = Float.MIN_VALUE;
+        float minY = Float.MAX_VALUE;
+        float maxY = Float.MIN_VALUE;
+        float minZ = Float.MAX_VALUE;
+        float maxZ = Float.MIN_VALUE;
         try {
             stlReader.open();
             povFileGenerator.init();
@@ -86,6 +92,29 @@ public class Converter {
                 if (Program.getCommand().hasOption("V")){
                     v += getPartialVolume(polygon);
                 }
+                if (Program.getCommand().hasOption("d")){
+                    Vertex[] vertices = polygon.getVertices();
+                    for(Vertex vertex : vertices){
+                        if (vertex.getX() < minX){
+                            minX = vertex.getX();
+                        }
+                        if (vertex.getX() > maxX){
+                            maxX = vertex.getX();
+                        }
+                        if (vertex.getY() < minY){
+                            minY = vertex.getY();
+                        }
+                        if (vertex.getY() > maxY){
+                            maxY = vertex.getY();
+                        }
+                        if (vertex.getZ() < minZ){
+                            minZ = vertex.getZ();
+                        }
+                        if (vertex.getZ() > maxZ){
+                            maxZ = vertex.getZ();
+                        }
+                    }
+                }
             }
 
             if (Program.getCommand().hasOption("S")){
@@ -93,6 +122,10 @@ public class Converter {
             }
             if (Program.getCommand().hasOption("V")){
                 System.out.println("volume: " + v);
+            }
+            if (Program.getCommand().hasOption("d")){
+                System.out.println("size: " + (maxX - minX) + ","
+                        + (maxY - minY) + "," + (maxZ - minZ));
             }
         } finally {
             if (stlReader != null){
