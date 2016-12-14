@@ -39,7 +39,7 @@ class AsciiSTLReader extends STLReader {
             }
             if (line.indexOf("loop") > 0){
                 continue;
-            }else if (line.indexOf("endfacet") > 0){
+            }else if (line.indexOf("endfacet") >= 0){
                 break;
             }
             Matcher vertexMatcher = this.vertexLinePattern.matcher(line);
@@ -48,7 +48,9 @@ class AsciiSTLReader extends STLReader {
                         Float.parseFloat(vertexMatcher.group(1))
                         , Float.parseFloat(vertexMatcher.group(2))
                         , Float.parseFloat(vertexMatcher.group(3)));
-                vertices[index++] = vertex;
+                if (index < 3){
+                    vertices[index++] = vertex;
+                }
             }
         }
 
@@ -67,15 +69,15 @@ class AsciiSTLReader extends STLReader {
         }
         this.facetLinePattern = Pattern.compile(
                 "\\s*facet\\s+normal"
-                + "\\s+([-]?\\d+\\.\\d{6}e[+-]\\d{3})"
-                + "\\s+([-]?\\d+\\.\\d{6}e[+-]\\d{3})"
-                + "\\s+([-]?\\d+\\.\\d{6}e[+-]\\d{3})"
+                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
+                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
+                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
                 + "\\s*");
         this.vertexLinePattern = Pattern.compile(
                 "\\s*vertex"
-                + "\\s+([-]?\\d+\\.\\d{6}e[+-]\\d{3})"
-                + "\\s+([-]?\\d+\\.\\d{6}e[+-]\\d{3})"
-                + "\\s+([-]?\\d+\\.\\d{6}e[+-]\\d{3})"
+                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
+                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
+                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
                 + "\\s*");
         streamReader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(
