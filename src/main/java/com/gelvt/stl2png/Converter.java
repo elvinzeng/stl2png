@@ -83,11 +83,15 @@ public class Converter {
             stlReader.open();
             povFileGenerator.init();
 
+            //int lineNo = 0;
             Polygon polygon;
             while(null != (polygon = stlReader.nextPolygon())){
                 povFileGenerator.addPolygon(polygon);
                 if (Program.getCommand().hasOption("S")){
-                    s += getPartialSurfaceArea(polygon);
+                    double ps = getPartialSurfaceArea(polygon);
+                    s += ps;
+                    //lineNo++;
+                    //System.out.println("lineNo:" + lineNo + " ps:" + ps + " s:" + s + " polygon:" + polygon);
                 }
                 if (Program.getCommand().hasOption("V")){
                     v += getPartialVolume(polygon);
@@ -159,6 +163,7 @@ public class Converter {
                 + Math.pow((vertices[2].getY() - vertices[1].getY()), 2)
                 + Math.pow((vertices[2].getZ() - vertices[1].getZ()), 2)));
         double s = (a + b + c) / 2;
-        return Math.sqrt(s*(s - a)*(s - b)*(s - c));
+        double ret = Math.sqrt(s*(s - a)*(s - b)*(s - c));
+        return Double.isNaN(ret) ? 0 : ret;
     }
 }

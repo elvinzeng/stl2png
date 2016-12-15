@@ -1,5 +1,7 @@
 package com.gelvt.stl2png.model;
 
+import java.util.Arrays;
+
 /**
  * 3D模型的三角面片
  * Created by elvin on 16-12-6.
@@ -40,5 +42,11 @@ public class Polygon {
         this.normal = normal;
     }
 
-
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "vertices=" + Arrays.toString(vertices) +
+                ", normal=" + normal +
+                '}';
+    }
 }

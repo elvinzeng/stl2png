@@ -17,6 +17,7 @@ class AsciiSTLReader extends STLReader {
     private boolean isInitialized = false;
     private Pattern facetLinePattern;
     private Pattern vertexLinePattern;
+    private int lineNo = 0;
     /**
      * @param stlFilePath STL文件的路径
      */
@@ -31,6 +32,7 @@ class AsciiSTLReader extends STLReader {
         Vertex[] vertices = new Vertex[3];
         int index = 0;
         while(null != (line = streamReader.readLine())){
+            this.lineNo++;
             Matcher facetMatcher = this.facetLinePattern.matcher(line);
             if (facetMatcher.find()){
                 normal = new Vertex(Float.parseFloat(facetMatcher.group(1))
@@ -54,6 +56,11 @@ class AsciiSTLReader extends STLReader {
             }
         }
 
+        if (line != null && index < 3){
+            throw new RuntimeException("读取三角面片的三组坐标时发生异常，读取到的坐标数小于3。lineNo:"
+                    + this.lineNo);
+        }
+
         if (normal != null){
             polygon = new Polygon();
             polygon.setNormal(normal);
@@ -69,15 +76,15 @@ class AsciiSTLReader extends STLReader {
         }
         this.facetLinePattern = Pattern.compile(
                 "\\s*facet\\s+normal"
-                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
-                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
-                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
+                + "\\s+(\\S+)"
+                + "\\s+(\\S+)"
+                + "\\s+(\\S+)"
                 + "\\s*");
         this.vertexLinePattern = Pattern.compile(
                 "\\s*vertex"
-                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
-                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
-                + "\\s+([-]?\\d+\\.\\d+e*[+-]*\\d*)"
+                + "\\s+(\\S+)"
+                + "\\s+(\\S+)"
+                + "\\s+(\\S+)"
                 + "\\s*");
         streamReader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(
